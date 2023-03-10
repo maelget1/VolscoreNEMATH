@@ -4,7 +4,7 @@ ob_start();
 ?>
 <div class="card" style="width: 75rem;">
     <div class="card-header justify-content-center flex">
-    Liste des matches joués
+    Liste des matches du jour
     </div>
     <ul class="list-group list-group-flush">
         <?php
