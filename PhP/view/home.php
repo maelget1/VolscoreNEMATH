@@ -2,17 +2,20 @@
 $title = 'Accueil';
 ob_start();
 ?>
-<div class="row">
-    <div class="col-6">
-        <a href="?action=teams">
-            <h1>Equipes</h1>
-        </a>
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+    Liste des matches du jour
     </div>
-    <div class="col-6">
-        <a href="?action=games">
-            <h1>Matches</h1>
-        </a>
-    </div>
+    <ul class="list-group list-group-flush">
+        <?php
+            foreach ($tGames as $game)
+            {
+                ?>
+                <li class="list-group-item"><?=$game->receivingTeamName?>-<?=$game->visitingTeamName?> <?=$hour?></li>
+                <?php
+            }
+        ?>
+    </ul>
 </div>
 <?php
 $content = ob_get_clean();
