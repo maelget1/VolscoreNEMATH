@@ -45,7 +45,7 @@ function showPlayedGames()
 {
     // Get data
     $games = VolscoreDb::getGamesByTime(0);
-    asort($games);
+    sort($games, SORT_NUMERIC);
     require_once 'view/playedGames.php';
 }
 
