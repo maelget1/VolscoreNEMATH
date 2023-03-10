@@ -37,24 +37,14 @@ function executeUnitTests()
 function showTodaysGames()
 {
     //Get data
-    $games = VolscoreDb::getGames();
-    $tGames = array();
-    foreach($games as $game){
-        $pieces = explode(" ", $game->moment);
-        if($pieces[0] == date("Y-m-d"))
-        {
-            array_push($tGames, $game);
-        }
-    }
-    $hour = $pieces[1];
-
+    $games = VolscoreDb::getGamesByTime(1);
     require_once 'view/home.php';
 }
 
 function showPlayedGames()
 {
     // Get data
-    $games = VolscoreDb::getGamesByTime("Past");
+    $games = VolscoreDb::getGamesByTime(0);
     asort($games);
     require_once 'view/playedGames.php';
 }
