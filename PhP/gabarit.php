@@ -9,12 +9,38 @@
 </head>
 <body>
 <header class="text-center">
-    <h1>VolScore</h1>
+    <div class="row">
+        <div class="col">
+            <a href="?action=home" class="link">
+                <h1>Accueil</h1>
+            </a>
+        </div>
+        <div class="col">
+            <a href="?action=teams" class="link">
+                <h1>Equipes</h1>
+            </a>
+        </div>
+        <div class="col">
+            <a href="?action=editGames" class="link">
+                <h1>Gérer</h1>
+            </a>
+        </div>
+        <div class="col">
+            <a href="?action=games" class="link">
+                <h1>Marquer</h1>
+            </a>
+        </div>
+        <div class="col">
+            <a href="?action=playedGames" class="link">
+                <h1>Déjà joués</h1>
+            </a>
+        </div>
+    </div>
 </header>
 <div class="container">
 <?= $content ?>
 </div>
-<footer class="text-center">
+<footer class="text-center" style="background-color:#2C69E8">
     <p>© ETML 2023</p>
 </footer>
 </body>

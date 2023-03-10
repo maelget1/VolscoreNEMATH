@@ -1,3 +1,39 @@
 header, footer {
-    background: linear-gradient(0.25turn, #6aa619, #a7f89f, #1eb35c);
+    background: linear-gradient(0.5turn, #00F2DE, #00FFEA, #00D9C7);
 }
+
+.link{
+    
+    font-size: medium;
+    color: black;
+    text-decoration: none;
+
+}
+
+.link:hover {
+     color: #0C8FF9;
+     }
+
+     .styled {
+        border: 0;
+        line-height: 2.5;
+        padding: 0 40px;
+        font-size: 1rem;
+        text-align: center;
+        color: #fff;
+        text-shadow: 1px 1px 1px #000;
+        border-radius: 10px;
+        background-color: #0C8FF9;
+        box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6), inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+    }
+    
+    .styled:hover {
+        background-color: #0BB5DB;
+    }
+    
+    .styled:active {
+        box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6), inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+    }
+    .mr{
+        margin-right:80px;
+    }
