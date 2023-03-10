@@ -26,6 +26,9 @@ switch ($action)
     case 'game':
         ShowGame();
         break;
+    case 'AddGame':
+        AddGame();
+        break;
     default:
         require_once 'view/home.php';
 }

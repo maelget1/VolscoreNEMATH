@@ -64,4 +64,9 @@ function ShowGame()
     
     require_once 'view/game.php';
 }
+
+function AddGame()
+{
+    require_once 'view/AddGame.php';
+}
 ?>
