@@ -11,7 +11,7 @@ ob_start();
             foreach ($games as $game)
             {
                 ?>
-                <a href='?action=game&id=".$game->id."' class="link"><ul class="list-inline d-flex justify-content-around"><li class="list-inline-item"><?=$game->receivingTeamName?></li><li><?=$game->scoreReceiving?></li><li class="list-inline-item"><?=$game->moment?></li><li class="list-inline-item"><?=$game->scoreVisiting?></li><li><?=$game->visitingTeamName?></li></ul></a>
+                <a href='?action=game&id=".$game->id."' class="link"><ul class="list-inline d-flex justify-content-around"><li class="list-inline-item"><?=$game->receivingTeamName?>-<?=$game->scoreReceiving?></li><li class="list-inline-item"><?=$game->moment?></li><li class="list-inline-item"><?=$game->scoreVisiting?>-<?=$game->visitingTeamName?></li></ul></a>
                 <?php
             }
         ?>
