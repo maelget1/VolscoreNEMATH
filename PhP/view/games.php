@@ -3,17 +3,18 @@ $title = 'Matches';
 
 ob_start();
 ?>
-
-<h1>Matchs</h1>
+<!--<a href='?action=game&id=".$game->id."'><input class='favorite styled mt-auto' type='button' value='Marquer'></a>"-->
+<h1>Matchs du jour</h1>
 <table class="table table-bordered">
     <thead>
-        <tr><th>Numéro</th><th>Recevante</th><th>Visiteur</th><th>Score</th></tr>
+        <tr><th>Recevante</th><th>Visiteur</th><th>Heure</th></tr>
     </thead>
     <tbody>
     <?php
+    //explode(string $separator, string $string, int $limit = PHP_INT_MAX)
     foreach ($games as $game)
     {
-        echo "<tr><td>".$game->id."</td><td>".$game->receivingTeamName."</td><td class='justify-content-between d-flex'>".$game->visitingTeamName."<a href='?action=game&id=".$game->id."'><input class='favorite styled mt-auto' type='button' value='Marquer'></a></td></tr>";
+        echo "<tr><td>$game->receivingTeamName.</td><td class='justify-content-between d-flex'>$game->visitingTeamName.</td><td>$game->moment</td></tr>";
     }
     ?>
     </tbody>
