@@ -13,11 +13,13 @@ ob_start();
     <?php
     foreach ($games as $game)
     {
-        echo "<tr><td>".$game->number."</td><td>".$game->receivingTeamName."</td><td>".$game->visitingTeamName."</td><td>".$game->scoreReceiving."-".$game->scoreVisiting."</td></tr>";
+        echo "<tr><td>".$game->id."</td><td>".$game->receivingTeamName."</td><td class='justify-content-between d-flex'>".$game->visitingTeamName."<a href='?action=game&id=".$game->id."'><input class='favorite styled mt-auto' type='button' value='Marquer'></a></td></tr>";
     }
     ?>
     </tbody>
 </table>
+
+<a href='?action=AddGame'><button type="button" class="btn btn-success">Ajouter</button></a>
 
 <?php
 $content = ob_get_clean();
