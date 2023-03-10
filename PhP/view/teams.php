@@ -1,6 +1,6 @@
 <?php
 $title = 'Equipes';
-
+session_start();
 ob_start();
 ?>
 
@@ -10,7 +10,9 @@ ob_start();
 <?php
 foreach ($teams as $team)
 {
-    echo "<li>".$team->name."</li>";
+    ?>
+    <li><?=$team->name?><a href="https://www.google.com"><img src="..\images\loupe.png" class="img-fluid" alt="Details"></a></li>
+    <?php
 }
 ?>
 </ul>
@@ -18,4 +20,7 @@ foreach ($teams as $team)
 <?php
 $content = ob_get_clean();
 require_once 'gabarit.php';
+//valeur de la dernière page visitée
+$_SESSION["lastPage"]=$_SERVER["HTTP_HOST"];
+$_SESSION["lastPage"] .= $_SERVER['REQUEST_URI'] ;
 ?>
