@@ -71,7 +71,7 @@ function ShowGame()
                 $sexSymbol = "../images/mixt.png";
             }
 
-    $team1 = VolscoreDb::getTeam($firstteam);
+    $team1 = VolscoreDb::getTeam($firstTeam);
     $team2 = VolscoreDb::getTeam($secondTeam);
     $liberoTeam1 = VolscoreDb::getLibero($team1);
     $liberoTeam2 = VolscoreDb::getLibero($team2);
