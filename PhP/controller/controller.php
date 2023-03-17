@@ -53,24 +53,25 @@ function ShowGame()
 {
     $id=$_GET["id"];
     // Get data
-    $game = VolscoreDb::getGames($id);
-
-            $actualGame = $game;
-            $firstTeam = $game->receivingTeamId;
-            $secondTeam = $game->visitingTeamId;
-            if($game->category == "Homme")
-            {
-                $sexSymbol = "../images/men.png";
-            }
-            else if($game->category == "Homme")
-            {
-                $sexSymbol = "../images/women.png";
-            }
-            else
-            {
-                $sexSymbol = "../images/mixt.png";
-            }
-
+    $game = VolscoreDb::getGame($id);
+    $actualGame = $game;
+    $firstTeam = $game->receivingTeamId;
+    $secondTeam = $game->visitingTeamId;
+    if($game->category == "Homme")
+    {
+        $sexSymbol = "../images/men.png";
+    }
+    else if($game->category == "Homme")
+    {
+        $sexSymbol = "../images/women.png";
+    }
+    else
+    {
+        $sexSymbol = "../images/mixt.png";
+    }
+    $time = explode(" ", $game->moment);
+    $hour = $time[1];
+    $date = $time[0];
     $team1 = VolscoreDb::getTeam($firstTeam);
     $team2 = VolscoreDb::getTeam($secondTeam);
     $liberoTeam1 = VolscoreDb::getLibero($team1);
