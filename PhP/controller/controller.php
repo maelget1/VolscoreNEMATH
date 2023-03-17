@@ -60,7 +60,10 @@ function ShowGame()
         {
             $actualGame = $game;
         }
+        $firstteam = $game->receivingTeamId;
     }
+    $team1 = VolscoreDb::getTeam($firstteam);
+    $liberoTeam1 = VolscoreDb::getLibero($team1);
     
     require_once 'view/game.php';
 }

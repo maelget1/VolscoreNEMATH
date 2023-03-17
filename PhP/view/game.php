@@ -7,11 +7,13 @@ $title = $actualGame->receivingTeamName.'-'.$actualGame->visitingTeamName;
 <br><br>
 
 <h1>Résultats du match</h1>
-
+<div >
+    <div><?=$actualGame->moment?></div>
+</div>
 <table class="table table-bordered border-dark">
-  <tr><th><?=$actualGame->receivingTeamName?></th><th><?=$actualGame->scoreReceiving?></th><th><?=$actualGame->league?> <?=$actualGame->type?></th><th><?=$actualGame->scoreVisiting?></th><th><?=$actualGame->visitingTeamName?></th></tr>
+  <tr><th><?=$actualGame->receivingTeamName?></th><th><?=$actualGame->scoreReceiving?></th><th class="mx-auto"><?=$actualGame->league?> <?=$actualGame->type?></th><th><?=$actualGame->scoreVisiting?></th><th><?=$actualGame->visitingTeamName?></th></tr>
   <tr><td class="mr-5">Capitaine: N°32<?php ?></td></tr>
-  <tr><td class="mr-5">Libero(s): N°45<?php ?></td></tr>
+  <tr><td class="mr-5">Libero(s): <?=$liberoTeam1?></td></tr>
   <tr><td class="mr-5">Carton(s): N°3  <?php ?><img src="..\images\cartonRouge.png" alt="carton rouge"></td></tr>
 </table>
 
