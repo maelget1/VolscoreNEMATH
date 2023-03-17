@@ -23,6 +23,7 @@ switch ($action)
         showPlayedGames();
         break;
     case 'editGames':
+        edit();
         break;
     case 'game':
         ShowGame();

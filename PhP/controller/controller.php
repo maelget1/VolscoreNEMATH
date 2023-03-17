@@ -53,14 +53,31 @@ function ShowGame()
 {
     $id=$_GET["id"];
     // Get data
-    $games = VolscoreDb::getGames();
-    foreach($games as $game)
-    {
-        if($game->number == $id)
-        {
+    $game = VolscoreDb::getGames($id);
+
             $actualGame = $game;
-        }
-    }
+            $firstTeam = $game->receivingTeamId;
+            $secondTeam = $game->visitingTeamId;
+            if($game->category == "Homme")
+            {
+                $sexSymbol = "../images/men.png";
+            }
+            else if($game->category == "Homme")
+            {
+                $sexSymbol = "../images/women.png";
+            }
+            else
+            {
+                $sexSymbol = "../images/mixt.png";
+            }
+
+    $team1 = VolscoreDb::getTeam($firstTeam);
+    $team2 = VolscoreDb::getTeam($secondTeam);
+    $liberoTeam1 = VolscoreDb::getLibero($team1);
+    $liberoTeam2 = VolscoreDb::getLibero($team2);
+    $captainTeam1 = VolscoreDb::getCaptain($team1);
+    $captainTeam2 = VolscoreDb::getCaptain($team2);
+    
     
     require_once 'view/game.php';
 }
@@ -68,5 +85,10 @@ function ShowGame()
 function AddGame()
 {
     require_once 'view/AddGame.php';
+}
+
+function edit()
+{
+    require_once 'view/editGames.php';
 }
 ?>
