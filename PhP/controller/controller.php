@@ -56,7 +56,7 @@ function ShowGame()
     $games = VolscoreDb::getGames();
     foreach($games as $game)
     {
-        if($games->id == $id)
+        if($game->number == $id)
         {
             $actualGame = $game;
         }
