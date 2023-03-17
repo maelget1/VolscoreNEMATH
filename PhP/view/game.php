@@ -3,7 +3,7 @@ ob_start();
 $title = $actualGame->receivingTeamName.'-'.$actualGame->visitingTeamName;
 ?>
 <p>Page en dévelopement</p>
-<a><button type="button" class="btn btn-primary">Retour</button><a>
+<a href="?action=playedGames"><button type="button" class="btn btn-primary">Retour</button><a>
 <br><br>
 
 <h1>Résultats du match</h1>

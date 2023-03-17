@@ -69,4 +69,9 @@ function AddGame()
 {
     require_once 'view/AddGame.php';
 }
+
+function edit()
+{
+    require_once 'view/editGames.php';
+}
 ?>
