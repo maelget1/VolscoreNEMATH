@@ -59,11 +59,31 @@ function ShowGame()
         if($game->number == $id)
         {
             $actualGame = $game;
+            $firstTeam = $game->receivingTeamId;
+            $secondTeam = $game->visitingTeamId;
+            if($game->category == "Homme")
+            {
+                $sexSymbol = "../images/men.png";
+            }
+            else if($game->category == "Homme")
+            {
+                $sexSymbol = "../images/women.png";
+            }
+            else
+            {
+                $sexSymbol = "../images/mixt.png";
+            }
         }
-        $firstteam = $game->receivingTeamId;
+        
     }
+
     $team1 = VolscoreDb::getTeam($firstteam);
+    $team2 = VolscoreDb::getTeam($secondTeam);
     $liberoTeam1 = VolscoreDb::getLibero($team1);
+    $liberoTeam2 = VolscoreDb::getLibero($team2);
+    $captainTeam1 = VolscoreDb::getCaptain($team1);
+    $captainTeam2 = VolscoreDb::getCaptain($team2);
+    
     
     require_once 'view/game.php';
 }
