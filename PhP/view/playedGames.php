@@ -10,8 +10,10 @@ ob_start();
         <?php
             foreach ($games as $game)
             {
+                
+                echo '<a href="?action=game&id='.$game->number.'" class="link">';
                 ?>
-                    <a href="?action=game&id=" class="link"><ul class="list-inline d-flex justify-content-around"><li class="list-inline-item"><?=$game->receivingTeamName?>-<?=$game->scoreReceiving?></li><li class="list-inline-item"><?=$game->moment?></li><li class="list-inline-item"><?=$game->scoreVisiting?>-<?=$game->visitingTeamName?></li></ul></a>
+                <ul class="list-inline d-flex justify-content-around"><li class="list-inline-item"><?=$game->receivingTeamName?>-<?=$game->scoreReceiving?></li><li class="list-inline-item"><?=$game->moment?></li><li class="list-inline-item"><?=$game->scoreVisiting?>-<?=$game->visitingTeamName?></li></ul></a>
                 <?php
             }
         ?>
