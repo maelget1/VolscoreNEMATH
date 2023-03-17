@@ -53,11 +53,8 @@ function ShowGame()
 {
     $id=$_GET["id"];
     // Get data
-    $games = VolscoreDb::getGames();
-    foreach($games as $game)
-    {
-        if($game->number == $id)
-        {
+    $game = VolscoreDb::getGames($id);
+
             $actualGame = $game;
             $firstTeam = $game->receivingTeamId;
             $secondTeam = $game->visitingTeamId;
@@ -73,9 +70,6 @@ function ShowGame()
             {
                 $sexSymbol = "../images/mixt.png";
             }
-        }
-        
-    }
 
     $team1 = VolscoreDb::getTeam($firstteam);
     $team2 = VolscoreDb::getTeam($secondTeam);
