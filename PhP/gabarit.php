@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" class="h-100">
 <head>
     <meta charset="UTF-8">
     <title><?= $title ?></title>
@@ -7,9 +7,9 @@
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
+<body class="d-flex flex-column h-100">
 <header class="text-center">
-    <div class="row">
+    <div class="row mw-100">
         <div class="col">
             <a href="?action=home" class="link">
                 <h1>Accueil</h1>
@@ -40,7 +40,7 @@
 <div class="container">
 <?= $content ?>
 </div>
-<footer class="text-center" style="background-color:#2C69E8">
+<footer class="text-center mt-auto" style="background-color:#2C69E8">
     <p>© ETML 2023</p>
 </footer>
 </body>
