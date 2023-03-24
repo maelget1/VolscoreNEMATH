@@ -57,11 +57,11 @@ function ShowGame()
     $actualGame = $game;
     $firstTeam = $game->receivingTeamId;
     $secondTeam = $game->visitingTeamId;
-    if($game->category == "Homme")
+    if($game->category == "M")
     {
         $sexSymbol = "../images/men.png";
     }
-    else if($game->category == "Homme")
+    else if($game->category == "F")
     {
         $sexSymbol = "../images/women.png";
     }
