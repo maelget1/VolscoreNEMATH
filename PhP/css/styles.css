@@ -37,3 +37,15 @@ header, footer {
     .mr{
         margin-right:80px;
     }
+    .noTopBorder{
+        border-top: none;
+    }
+    .noBotBorder{
+        border-bottom: none;
+    }
+    .noRightBorder{
+        border-right: none;
+    }
+    .noLeftBorder{
+        border-left: none;
+    }

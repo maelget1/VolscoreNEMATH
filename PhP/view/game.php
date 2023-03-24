@@ -10,23 +10,22 @@ $title = $actualGame->receivingTeamName.'-'.$actualGame->visitingTeamName;
   <div class="container">
     <div class="row">
       <div class="col-4 text-start p-3">
-        <p><?=$actualGame->moment?></p>
+        <p>Date : <?=$date?></p>
       </div>
       <div class="col-4 text-center p-3">
-        <p><?=$actualGame->place?></p>
+        <p>Lieu : <?=$actualGame->place?></p>
       </div>
       <div class="col-4 text-end p-3">
-        <p>Aligné à droite</p>
+        <p>Heure : <?=$hour?></p>
       </div>
     </div>
   </div>
 <table class="table table-bordered border-dark">
-  <tr><th><?=$actualGame->receivingTeamName?></th><th><?=$actualGame->scoreReceiving?></th><th class="mx-auto"><?=$actualGame->league?> <?=$actualGame->type?></th><th><?=$actualGame->scoreVisiting?></th><th><?=$actualGame->visitingTeamName?></th></tr>
-  <tr><td class="mr-5">Capitaine: N°<?=$captainTeam1->number?></td><td class="text-end">Capitaine: N°<?=$captainTeam2->number?></p></td></tr>
-  <tr><td class="mr-5">Libero(s): N°<?=$liberoTeam1->number?></td><td>Libero(s): N°<?=$liberoTeam2->number?></td></tr>
-  <tr><td class="mr-5">Carton(s): N°3<img src="..\images\cartonRouge.png" alt="carton rouge"></td></tr>
+  <tr class="text-center"><th><?=$actualGame->receivingTeamName?></th><th><?=$actualGame->scoreReceiving?></th><th><?=$actualGame->league?> <?=$actualGame->type?></th><th><?=$actualGame->scoreVisiting?></th><th><?=$actualGame->visitingTeamName?></th></tr>
+  <tr><td class="mr-5">Capitaine: N°<?=$captainTeam1->number?></td><td class="noRightBorder"></td><td class="noRightBorder noLeftBorder"><td class="noLeftBorder"></td></td><td class="text-end">Capitaine: N°<?=$captainTeam2->number?></p></td></tr>
+  <tr><td class="mr-5">Libero(s): N°<?=$liberoTeam1->number?></td><td class="noRightBorder"></td><td class="noRightBorder noLeftBorder"><td class="noLeftBorder"></td></td></td><td  class="text-end"style="margin-left: 120px">Libero(s): N°<?=$liberoTeam2->number?></td></tr>
+  <tr><td class="mr-5">Carton(s): N°3<img src="..\images\cartonRouge.png" alt="carton rouge"></td class="noRightBorder"></td><td class="noRightBorder noLeftBorder"></td><td class="noLeftBorder"><td class="noLeftBorder"></td><td class="mr-5 text-end">Carton(s): N°7<img src="..\images\cartonJaune.png" alt="carton jaune"></td></tr>
 </table>
-
 
 <?php
 $content = ob_get_clean();
