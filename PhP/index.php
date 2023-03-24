@@ -31,6 +31,9 @@ switch ($action)
     case 'AddGame':
         AddGame();
         break;
+    case 'mark':
+        Mark();
+        break;
     default:
         require_once 'view/home.php';
 }

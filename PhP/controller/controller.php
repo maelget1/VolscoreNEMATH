@@ -92,4 +92,9 @@ function edit()
 {
     require_once 'view/editGames.php';
 }
+
+function Mark()
+{
+    require_once 'view/mark.php';
+}
 ?>

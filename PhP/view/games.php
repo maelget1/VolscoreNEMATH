@@ -3,15 +3,14 @@ $title = 'Matches';
 
 ob_start();
 ?>
-<!--<a href='?action=game&id=".$game->id."'><input class='favorite styled mt-auto' type='button' value='Marquer'></a>"-->
 <h1>Matchs du jour</h1>
+<input type="date" onload="getDate()" id="date">
 <table class="table table-bordered">
     <thead>
         <tr><th>Recevante</th><th>Visiteur</th><th>Heure</th><th>Détail</th></tr>
     </thead>
     <tbody>
     <?php
-    //explode(string $separator, string $string, int $limit = PHP_INT_MAX)
     foreach ($games as $game)
     {
         
@@ -19,7 +18,7 @@ ob_start();
         <tr><td><?=$game->receivingTeamName?></td><td class='justify-content-between d-flex'><?=$game->visitingTeamName?></td><td><?=$game->moment?></td><td><button onclick="myScript(<?=$game->number?>)">?</button></td></tr>
         <tr id="<?=$game->number?>" style="display: none;"><td>Salle: <?=$game->place?><br>Ligue: <?=$game->type?><br>Niveau: <?=$game->level?><br>Catégorie: <?=$game->category?></td>
         <?php
-        echo '<td><a href="?action=game&id='.$game->number.'" class="link"><button>Marquer</button></a></td>';
+        echo '<td><a href="?action=mark&id='.$game->number.'" class="link"><button>Marquer</button></a></td>';
         ?>
         </tr>
         <?php
@@ -37,6 +36,13 @@ ob_start();
     x.style.display = "none";
   }
     }
+    function getDate(){
+    var today = new Date();
+
+document.getElementById("date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+
+
+}
 </script>
 
 <a href='?action=AddGame'><button type="button" class="btn btn-success">Ajouter</button></a>
