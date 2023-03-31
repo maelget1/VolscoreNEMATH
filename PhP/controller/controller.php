@@ -20,8 +20,24 @@ function showTeams()
 
 function showGames()
 {
-    // Get data
-    $games = VolscoreDb::getGames();
+    $dateValue = $_COOKIE['dateValue'];
+    $games = array();
+
+    if($dateValue > date("Y-m-d")){
+        // Get data
+        $gamesNotSorted = VolscoreDb::getGamesByTime(2);
+        foreach($gamesNotSorted as $game){
+            $new = explode(" ", $game->moment);
+            if($new[0] == $dateValue){
+                array_push($games, $game);
+            }
+        }
+    }
+    elseif($dateValue == date("Y-m-d")){
+        // Get data
+        $games = VolscoreDb::getGamesByTime(1);
+    }
+    
 
     // Prepare data: nothing for now
 
