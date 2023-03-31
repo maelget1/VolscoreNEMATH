@@ -12,7 +12,6 @@
     <div class="row mw-100">
         <div class="col">
             <a href="?action=home" class="link">
-                <h1>Hello</h1>
                 <h1>Accueil</h1>
             </a>
         </div>
