@@ -40,8 +40,8 @@
 <div class="container">
 <?= $content ?>
 </div>
-<footer class="text-center mt-auto" style="background-color:#2C69E8">
-    <p>© ETML 7000</p>
+<footer class="text-center mt-auto">
+    <p>© ETML 2023</p>
 </footer>
 </body>
 </html>

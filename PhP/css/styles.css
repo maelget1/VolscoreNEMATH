@@ -49,3 +49,6 @@ header, footer {
     .noLeftBorder{
         border-left: none;
     }
+    footer{
+        background-color:#2C69E8;
+    }
