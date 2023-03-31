@@ -3,8 +3,14 @@ $title = 'Matches';
 
 ob_start();
 ?>
-<h1>Matchs du jour</h1>
-<input type="date" onload="getDate()" id="date">
+<?php
+
+echo $dateValue."coucou";
+?>
+<div class="d-flex justify-content-between">
+<h1>Marquer un match</h1>
+<input type="date" value="<?= date($dateValue)?>" id="dateInput" name="dateInput" onchange="GetChange(event);">
+</div>
 <table class="table table-bordered">
     <thead>
         <tr><th>Recevante</th><th>Visiteur</th><th>Heure</th><th>Détail</th></tr>
@@ -28,21 +34,24 @@ ob_start();
 </table>
 
 <script>
-    function myScript(id){
-        var x = document.getElementById(id);
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
+  function myScript(id){
+      var x = document.getElementById(id);
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
   }
+
+  function GetChange(e){
+    var dateArr = e.srcElement.value.split('-');
+    // Make sure we are dealing with an array of at least length 2
+    if (dateArr.length > 1) {
+   	  // Format the date as needed
+   	  // Currently mm/dd/yyyy
+       document.cookie = "dateValue = " + dateArr[0] + '-' + dateArr[1] + '-' + dateArr[2];
     }
-    function getDate(){
-    var today = new Date();
-
-document.getElementById("date").value = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
-
-
-}
+  } 
 </script>
 
 <a href='?action=AddGame'><button type="button" class="btn btn-success">Ajouter</button></a>
