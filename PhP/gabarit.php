@@ -12,7 +12,7 @@
     <div class="row mw-100">
         <div class="col">
             <a href="?action=home" class="link">
-                <h1>Accueil</h1>
+                <h1>Home</h1>
             </a>
         </div>
         <div class="col">
