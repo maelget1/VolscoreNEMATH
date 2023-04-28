@@ -20,7 +20,15 @@ function showTeams()
 
 function showGames()
 {
-    $dateValue = $_COOKIE['dateValue'];
+    if(empty($_COOKIE['dateValue']))
+    {
+        $dateValue = date("Y-m-d");
+    }
+    else
+    {
+        $dateValue = $_COOKIE['dateValue'];
+    }
+    
     $games = array();
 
     if($dateValue > date("Y-m-d")){

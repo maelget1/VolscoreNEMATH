@@ -3,13 +3,12 @@ $title = 'Matches';
 
 ob_start();
 ?>
-<?php
-
-echo $dateValue."coucou";
-?>
 <div class="d-flex justify-content-between">
 <h1>Marquer un match</h1>
 <input type="date" value="<?= date($dateValue)?>" id="dateInput" name="dateInput" onchange="GetChange(event);">
+<button class="btn btn-outline-primary" onclick="GetChangePlus()">
+<img src="../images/rightArrow.png">
+</button>
 </div>
 <table class="table table-bordered">
     <thead>
@@ -50,8 +49,13 @@ echo $dateValue."coucou";
    	  // Format the date as needed
    	  // Currently mm/dd/yyyy
        document.cookie = "dateValue = " + dateArr[0] + '-' + dateArr[1] + '-' + dateArr[2];
+       location.reload();
     }
   } 
+
+  function GetChangePlus(){
+    document.cookie = 
+  }
 </script>
 
 <a href='?action=AddGame'><button type="button" class="btn btn-success">Ajouter</button></a>
