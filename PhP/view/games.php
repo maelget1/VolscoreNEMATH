@@ -54,7 +54,19 @@ ob_start();
   } 
 
   function GetChangePlus(){
-    document.cookie = 
+    var date = document.getElementById('dateInput');
+    //date.setDate(date.value + 1);
+    //ok.setDate(ok.value + 1);
+    //document.write(ok+1);
+    var dateArr = date.value.split('-');
+    /*document.write(dateArr[0]);
+    document.write(dateArr[1]);
+    document.write(dateArr[2]);*/
+    var plus = dateArr[2]++;
+    dateArr[2] = "0" + plus;
+    Console.log(dateArr[2]);
+    document.cookie = "dateValue = " + dateArr[0] + '-' + dateArr[1] + '-' + dateArr[2];
+    location.reload();
   }
 </script>
 
