@@ -102,6 +102,11 @@ function ShowGame()
     $liberoTeam2 = VolscoreDb::getLibero($team2);
     $captainTeam1 = VolscoreDb::getCaptain($team1);
     $captainTeam2 = VolscoreDb::getCaptain($team2);
+    for($x = 1;$x < 4;$x++){
+        $cardTeam1 = VolscoreDb::getBookings($team1,$x);
+    }
+
+    $cardTeam2 = VolscoreDb::getBookings($team2,1);
     
     
     require_once 'view/game.php';
