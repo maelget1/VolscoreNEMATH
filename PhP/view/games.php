@@ -6,6 +6,9 @@ ob_start();
 <div class="d-flex justify-content-between">
 <h1>Marquer un match</h1>
 <input type="date" value="<?= date($dateValue)?>" id="dateInput" name="dateInput" onchange="GetChange(event);">
+<button class="btn btn-outline-primary" onclick="GetChangeMinus()">
+<img src="../images/leftArrow.png">
+</button>
 <button class="btn btn-outline-primary" onclick="GetChangePlus()">
 <img src="../images/rightArrow.png">
 </button>
@@ -55,9 +58,36 @@ ob_start();
 
   function GetChangePlus(){
     var date = document.getElementById('dateInput').value;
-    document.write(date);
-    //document.cookie = "dateValue = " + dateArr[0] + '-' + dateArr[1] + '-' + dateArr[2];
-    //location.reload();
+    var ok = new Date(date);
+    var year = ok.getFullYear();
+    var month = ok.getMonth()+1;
+    var day = ok.getDate()+1;
+    if(month < 10){
+      month = "0" + month;
+    }
+    if(day < 10){
+      day = "0" + day;
+    }
+    if(day)
+    document.cookie = "dateValue = " + year + '-' + month + '-' + day;
+    location.reload();
+  }
+
+  function GetChangeMinus(){
+    var date = document.getElementById('dateInput').value;
+    var ok = new Date(date);
+    var year = ok.getFullYear();
+    var month = ok.getMonth()+1;
+    var day = ok.getDate()-1;
+    if(month < 10){
+      month = "0" + month;
+    }
+    if(day < 10){
+      day = "0" + day;
+    }
+    if(day)
+    document.cookie = "dateValue = " + year + '-' + month + '-' + day;
+    location.reload();
   }
 </script>
 
