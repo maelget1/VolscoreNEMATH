@@ -18,4 +18,25 @@ class Game extends Model {
     public $place;                  //!< Lieu: Dorigny, Ecublens, Pailly
     public $venue;                  //!< Nom de la salle de sport
     public $moment;                 //!< Date et heure du début du match
+
+    public function isMarkable() : bool {
+        return (date('Y-m-d') === date('Y-m-d',strtotime($this->moment)));
+    }
+
+    public function isEditable() : bool {
+        $now = date('Y-m-d H:i');
+        $then = date('Y-m-d H:i',strtotime($this->moment));
+        return (date('Y-m-d H:i') < date('Y-m-d H:i',strtotime($this->moment)));
+    }
+
+    /**
+     * Returns the set that is in progress, i.e:started but not finished
+     * returns 0 if none
+     */
+    public function setInProgress() : ?Set {
+        $sets = VolscoreDB::getSets($this);
+        if (count($sets) == 0) return null;
+        if (VolscoreDB::setIsOver($sets[count($sets)-1])) return null;
+        return $sets[count($sets)-1];
+    }
 }
