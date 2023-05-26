@@ -41,7 +41,7 @@
 <?= $content ?>
 </div>
 <footer class="text-center mt-auto">
-    <p>© ETML 2023</p>
+    <p>© Néo Masson, Theo Orlando, Maël Gétain   ETML 2023 V1.0</p>
 </footer>
 </body>
 </html>
