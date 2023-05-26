@@ -2,8 +2,8 @@
 ob_start();
 $title = $actualGame->receivingTeamName.'-'.$actualGame->visitingTeamName;
 ?>
-<p>Page en dévelopement</p>
 <a href="?action=playedGames"><button type="button" class="btn btn-primary">Retour</button><a>
+<a href="?action=playedGames"><button type="button" class="btn styled">Télécharger</button><a>
 <br><br>
 
 <h1>Résultats du match</h1>
@@ -21,10 +21,10 @@ $title = $actualGame->receivingTeamName.'-'.$actualGame->visitingTeamName;
     </div>
   </div>
 <table class="table table-bordered border-dark">
-  <tr class="text-center"><th><?=$actualGame->receivingTeamName?></th><th><?=$actualGame->scoreReceiving?></th><th><?=$actualGame->league?> <?=$actualGame->type?></th><th><?=$actualGame->scoreVisiting?></th><th><?=$actualGame->visitingTeamName?></th></tr>
+  <tr class="text-center"><th><?=$actualGame->receivingTeamName?> <img src="<?=$sexSymbol?>" alt="sexe de la team"></th><th><?=$actualGame->scoreReceiving?></th><th><?=$actualGame->league?> <?=$actualGame->type?></th><th><?=$actualGame->scoreVisiting?></th><th><?=$actualGame->visitingTeamName?> <img src="<?=$sexSymbol?>" alt="sexe de la team"></th></tr>
   <tr><td class="mr-5">Capitaine: N°<?=$captainTeam1->number?></td><td class="noRightBorder"></td><td class="noRightBorder noLeftBorder"><td class="noLeftBorder"></td></td><td class="text-end">Capitaine: N°<?=$captainTeam2->number?></p></td></tr>
   <tr><td class="mr-5">Libero(s): N°<?=$liberoTeam1->number?></td><td class="noRightBorder"></td><td class="noRightBorder noLeftBorder"><td class="noLeftBorder"></td></td></td><td  class="text-end"style="margin-left: 120px">Libero(s): N°<?=$liberoTeam2->number?></td></tr>
-  <tr><td class="mr-5">Carton(s): N°3<img src="..\images\cartonRouge.png" alt="carton rouge"></td class="noRightBorder"></td><td class="noRightBorder noLeftBorder"></td><td class="noLeftBorder"><td class="noLeftBorder"></td><td class="mr-5 text-end">Carton(s): N°7<img src="..\images\cartonJaune.png" alt="carton jaune"></td></tr>
+  <tr><td class="mr-5">Carton(s): N°<?= $cardTeam1->number ?><img src="..\images\cartonRouge.png" alt="carton rouge"></td class="noRightBorder"></td><td class="noRightBorder noLeftBorder"></td><td class="noLeftBorder noRightBorder"><td class="noLeftBorder"></td><td class="mr-5 text-end">Carton(s): N°7<img src="..\images\cartonJaune.png" alt="carton jaune"></td></tr>
 </table>
 
 <?php

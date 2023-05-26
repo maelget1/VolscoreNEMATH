@@ -7,7 +7,7 @@
     <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100 bg-img backImage">
 <header class="text-center">
     <div class="row mw-100">
         <div class="col">
@@ -40,7 +40,7 @@
 <div class="container">
 <?= $content ?>
 </div>
-<footer class="text-center mt-auto" style="background-color:#2C69E8">
+<footer class="text-center mt-auto">
     <p>© ETML 2023</p>
 </footer>
 </body>

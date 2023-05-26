@@ -20,8 +20,32 @@ function showTeams()
 
 function showGames()
 {
-    // Get data
-    $games = VolscoreDb::getGames();
+    if(empty($_COOKIE['dateValue']))
+    {
+        $dateValue = date("Y-m-d");
+    }
+    else
+    {
+        $dateValue = $_COOKIE['dateValue'];
+    }
+    
+    $games = array();
+
+    if($dateValue > date("Y-m-d")){
+        // Get data
+        $gamesNotSorted = VolscoreDb::getGamesByTime(2);
+        foreach($gamesNotSorted as $game){
+            $new = explode(" ", $game->moment);
+            if($new[0] == $dateValue){
+                array_push($games, $game);
+            }
+        }
+    }
+    elseif($dateValue == date("Y-m-d")){
+        // Get data
+        $games = VolscoreDb::getGamesByTime(1);
+    }
+    
 
     // Prepare data: nothing for now
 
@@ -78,6 +102,11 @@ function ShowGame()
     $liberoTeam2 = VolscoreDb::getLibero($team2);
     $captainTeam1 = VolscoreDb::getCaptain($team1);
     $captainTeam2 = VolscoreDb::getCaptain($team2);
+    for($x = 1;$x < 4;$x++){
+        $cardTeam1 = VolscoreDb::getBookings($team1,$x);
+    }
+
+    $cardTeam2 = VolscoreDb::getBookings($team2,1);
     
     
     require_once 'view/game.php';

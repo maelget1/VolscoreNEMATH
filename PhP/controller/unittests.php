@@ -1,11 +1,20 @@
 <div style='font-family:Arial, Helvetica, sans-serif'>
 <?php
+
 echo "<h1>DB</h1>";
 
 // Reset database completely
 try {
-    shell_exec("\"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysql\"  -u root -proot < ..\\Database\\volscore.sql");
-    echo "<p>Rechargée</p>";
+    if (PHP_OS == "Darwin") {
+        $res = shell_exec("/usr/local/bin/mysql -u root -proot 2>&1 < ../Database/volscore.sql");
+    } else {
+        $res = shell_exec("\"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysql\"  -u root -proot < ..\\Database\\volscore.sql");
+    }
+    if ($res == "") {
+        echo "<p>OK, Rechargée</p>";
+    } else {
+        echo "<p>Problème: $res</p>";
+    }
 } catch (Exception $e) {
     echo "<p>Pas rechargée. Raison: ".$e->getMessage()."</p>";
 }
@@ -68,26 +77,49 @@ while ($row = $statement->fetch()) {
     array_push($pastgames, $newgame);
 }
 
-// Add scores to each past game
-foreach ($pastgames as $game) {
-    while (!VolscoreDB::gameIsOver($game)) {
-        $newset = VolscoreDB::addSet($game);
-        $servpos = 1;
-        $serving = 0;
-        $scoring;
-        while (!VolscoreDB::setIsOver($newset)) {
-            $scoring = random_int(0, 1);
-            if ($scoring == 0) {
-                VolscoreDB::addPoint($newset,true);
-                $serving = 0;
-            } else {
-                VolscoreDB::addPoint($newset,false);
-                if ($scoring != $serving) $servpos = $servpos % 6 + 1;
-                $serving = 1;
-            }
-        }
+// Add players to games (liste d'engagement)
+foreach (VolscoreDB::getGames() as $game) {
+    foreach (VolscoreDB::getMembers($game->receivingTeamId) as $member) {
+        VolscoreDB::makePlayer($member->id, $game->number);
+    }
+    foreach (VolscoreDB::getMembers($game->visitingTeamId) as $member) {
+        VolscoreDB::makePlayer($member->id, $game->number);
     }
 }
+
+// Early assessment
+$teamHasPlayedIsOK = !VolscoreDB::teamHasPlayed(VolscoreDB::getTeam(1));
+
+// Add scores to each past game
+foreach ($pastgames as $game) {
+    $game = VolscoreDB::getGame($game->number); // because some fields are not initialized
+    while (!VolscoreDB::gameIsOver($game)) {
+        $newset = VolscoreDB::addSet($game);
+        $aTeamThatHasPlayed = $game->receivingTeamId;
+
+        // create positions for this set
+        $dbh = VolscoreDB::connexionDB();
+        $query = "SELECT players.id FROM players INNER JOIN members ON players.member_id = members.id WHERE game_id = ".$game->number." AND team_id = ".$game->receivingTeamId." ORDER BY RAND();";
+        $statement = $dbh->prepare($query); // Prepare query
+        $statement->execute(); // Executer la query
+        $poss = [];
+        while ($row = $statement->fetch()) $poss[] = $row['id'];
+        VolscoreDB::setPositions($newset->id,$game->receivingTeamId,$poss[0],$poss[1],$poss[2],$poss[3],$poss[4],$poss[5],1);
+        $query = "SELECT players.id FROM players INNER JOIN members ON players.member_id = members.id WHERE game_id = ".$game->number." AND team_id = ".$game->visitingTeamId." ORDER BY RAND();";
+        $statement = $dbh->prepare($query); // Prepare query
+        $statement->execute(); // Executer la query
+        $poss = [];
+        while ($row = $statement->fetch()) $poss[] = $row['id'];
+        VolscoreDB::setPositions($newset->id,$game->visitingTeamId,$poss[0],$poss[1],$poss[2],$poss[3],$poss[4],$poss[5],1);
+        while (!VolscoreDB::setIsOver($newset)) {
+            if (random_int(0, 1) == 0) {
+                VolscoreDB::addPoint($newset,true);
+            } else {
+                VolscoreDB::addPoint($newset,false);
+            }    
+        }    
+    }    
+}    
 
 // Start those tests now 
 echo "<h1>Tests</h1>";
@@ -122,9 +154,41 @@ if ($cap->last_name === "Stewart") {
 echo "<hr>";
 
 
+echo "Test getMember(memberid) -> ";
+if (VolscoreDB::getMember(33)->last_name === "Holmes") {
+    echo "<span style='background-color:green; padding:3px'>OK</span>";
+} else {
+    echo "<span style='background-color:red; padding:3px'>ko</span>";
+}
+
+echo "<hr>";
+
+
+echo "Test makePlayer(memberid,gameid) -> ";
+if (!VolscoreDB::makePlayer(999,1) && 
+    !VolscoreDB::makePlayer(1,999) &&
+    !VolscoreDB::makePlayer(1,1) &&
+    VolscoreDB::makePlayer(5,1)) {
+    echo "<span style='background-color:green; padding:3px'>OK</span>";
+} else {
+    echo "<span style='background-color:red; padding:3px'>ko</span>";
+}
+
+echo "<hr>";
+
+
 echo "Test getLibero(teamid) -> ";
 $lib = VolscoreDB::getLibero(VolscoreDB::getTeam(2));
 if ($lib->last_name === "Eaton") {
+    echo "<span style='background-color:green; padding:3px'>OK</span>";
+} else {
+    echo "<span style='background-color:red; padding:3px'>ko</span>";
+}
+
+echo "<hr>";
+echo "Test getMembers(teamid) -> ";
+
+if (count(VolscoreDB::getMembers(2)) == 12 && VolscoreDB::getMembers(5)[0]->first_name == "Theodore") {
     echo "<span style='background-color:green; padding:3px'>OK</span>";
 } else {
     echo "<span style='background-color:red; padding:3px'>ko</span>";
@@ -158,6 +222,75 @@ if (VolscoreDB::numberOfSets(VolscoreDB::getGame(1)) > 0 && VolscoreDB::numberOf
 }
 echo "<hr>";
 
+echo "Test createGame -> ";
+$ng1 = new Game(['type' => 'Coupe', 'level' => 'Régional-Fribourg', 'category' => 'F', 'league' => 'F4', 'location' => 'Oron', 'venue' => 'Complexe sportif', 'moment' => "$today 20:00", 'visitingTeamId' => $vis, 'receivingTeamId' => $rec]);
+$ng2 = new Game(['type' => 'Coupe', 'level' => 'Régional-Fribourg', 'category' => 'F', 'league' => 'F5', 'location' => 'Oron', 'venue' => 'Complexe sportif', 'moment' => "$today 20:00", 'visitingTeamId' => 9999, 'receivingTeamId' => $rec]);
+$ng3 = new Game(['type' => 'Coupe', 'level' => 'Régional-Fribourg', 'category' => 'F', 'league' => 'F6', 'location' => 'Oron', 'venue' => 'Complexe sportif', 'moment' => "$today 20:00", 'visitingTeamId' => $vis, 'receivingTeamId' => 9999]);
+if (VolscoreDB::createGame($ng1) && !VolscoreDB::createGame($ng2) && !VolscoreDB::createGame($ng3)) {
+    echo "<span style='background-color:green; padding:3px'>OK</span>,";
+} else {
+    echo "<span style='background-color:red; padding:3px'>ko</span>,";
+}
+echo "<hr>";
+
+echo "Test deleteTeam -> ";
+$kill = VolscoreDB::getTeam(7);
+if (VolscoreDB::deleteTeam($kill->id) && !VolscoreDB::deleteTeam(1)) {
+    echo "<span style='background-color:green; padding:3px'>OK</span>,";
+} else {
+    echo "<span style='background-color:red; padding:3px'>ko</span>,";
+}
+echo "<hr>";
+
+echo "Test teamHasPlayed -> ";
+if ($teamHasPlayedIsOK && VolscoreDB::teamHasPlayed(VolscoreDB::getTeam($aTeamThatHasPlayed))) {
+    echo "<span style='background-color:green; padding:3px'>OK</span>,";
+} else {
+    echo "<span style='background-color:red; padding:3px'>ko</span>,";
+}
+echo "<hr>";
+
+echo "Test renameTeam -> ";
+$savename = VolscoreDB::getTeam(4)->name;
+$res = true;
+if (VolscoreDB::renameTeam(4,"x")) $res = false;
+if (VolscoreDB::renameTeam(4,VolscoreDB::getTeam(3)->name)) $res = false;
+if (!VolscoreDB::renameTeam(4,"VBC Schpruntz")) $res = false;
+if (VolscoreDB::getTeam(4)->name != "VBC Schpruntz") $res = false;
+if (!VolscoreDB::renameTeam(4,$savename)) $res = false;
+
+if ($res) {
+    echo "<span style='background-color:green; padding:3px'>OK</span>,";
+} else {
+    echo "<span style='background-color:red; padding:3px'>ko</span>,";
+}
+echo "<hr>";
+
+echo "Test getBookings -> ";
+
+VolscoreDB::executeInsertQuery("INSERT INTO bookings (player_id,point_id) VALUES(3,10);");
+
+$dbh = VolscoreDB::connexionDB();
+$query = "SELECT team_id FROM players INNER JOIN members ON member_id = members.id WHERE players.id = 3";
+$stmt = $dbh->prepare($query);
+$stmt->execute();
+$row = $stmt->fetch();
+$team = VolscoreDB::getTeam($row['team_id']);
+$set = VolscoreDB::getSet(1); // 10th point is in set 1
+
+$res="<span style='background-color:green; padding:3px'>OK</span>,";
+$oneBooking = VolscoreDB::getBookings($team,$set);
+if ( count($oneBooking) != 1) $res="<span style='background-color:red; padding:3px'>ko</span>,";
+$team->id = $team->id % 6 + 1;
+$noBooking = VolscoreDB::getBookings($team,$set);
+if ( count($noBooking) != 0) $res="<span style='background-color:red; padding:3px'>ko</span>,";
+echo $res;
+$dbh = null;
+
+
+echo "<hr>";
+
+
 // show the games
 
 echo "<h1>Matchs</h1>";
@@ -171,3 +304,4 @@ foreach ($games as $game) {
 }
 ?>
 </div>
+<a href="/"><h1>Home</h1></a>
