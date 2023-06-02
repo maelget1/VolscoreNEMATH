@@ -126,4 +126,10 @@ function Mark()
 {
     require_once 'view/mark.php';
 }
+
+function ShowTeam()
+{
+    require_once 'view/team.php';
+}
+
 ?>

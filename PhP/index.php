@@ -34,6 +34,9 @@ switch ($action)
     case 'mark':
         Mark();
         break;
+    case 'team':
+        ShowTeam();
+        break;
     default:
         require_once 'view/home.php';
 }

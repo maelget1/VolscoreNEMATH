@@ -5,11 +5,11 @@ ob_start();
 ?>
 <div class="d-flex justify-content-between">
 <h1>Marquer un match</h1>
-<input type="date" value="<?= date($dateValue)?>" id="dateInput" name="dateInput" onchange="GetChange(event);">
-<button class="btn btn-outline-primary" onclick="GetChangeMinus()">
+<input class="custom-date-input" type="date" value="<?= date($dateValue)?>" id="dateInput" name="dateInput" onchange="GetChange(event);">
+<button class="custom-button" onclick="GetChangeMinus()">
 <img src="../images/leftArrow.png">
 </button>
-<button class="btn btn-outline-primary" onclick="GetChangePlus()">
+<button class="custom-button" onclick="GetChangePlus()">
 <img src="../images/rightArrow.png">
 </button>
 </div>
